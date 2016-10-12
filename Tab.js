@@ -57,6 +57,7 @@ export default class Tab extends React.Component {
       title ? null : styles.untitledContainer,
       this.props.style,
     ];
+    // TODO: Update the {...this.props} to exclude props not already being used
     return (
       <TouchableOpacity {...this.props}
         testID={this.props.testID}
