@@ -7,6 +7,7 @@ import React, {
 import {
   StyleSheet,
   View,
+  TouchableOpacity,
 } from 'react-native';
 
 import Badge from './Badge';
@@ -95,6 +96,16 @@ export default class TabNavigator extends React.Component {
   }
 
   _renderTab(item) {
+    if (item.props.renderTab) {
+      return (
+        <TouchableOpacity style={[styles.tabContainer, item.props.tabStyle]}
+                          onPress={item.props.onPress}
+                          activeOpacity={item.props.hidesTabTouch ? 1 : 0.8}>
+          {item.props.renderTab(item.props.selected)}
+        </TouchableOpacity>
+      );
+    }
+
     let icon;
     if (item === null) {
       return;
@@ -189,6 +200,12 @@ let styles = StyleSheet.create({
   defaultSelectedIcon: {
     tintColor: 'rgb(0, 122, 255)',
   },
+  tabContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  }
 });
 
 TabNavigator.Item = TabNavigatorItem;
