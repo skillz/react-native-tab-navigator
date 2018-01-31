@@ -1,9 +1,8 @@
 'use strict';
 
 import { Set } from 'immutable';
-import React, {
-  PropTypes,
-} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
@@ -16,11 +15,12 @@ import StaticContainer from './StaticContainer';
 import Tab from './Tab';
 import TabBar from './TabBar';
 import TabNavigatorItem from './TabNavigatorItem';
+import ViewPropTypes from './config/ViewPropTypes';
 
 export default class TabNavigator extends React.Component {
   static propTypes = {
-    ...View.propTypes,
-    sceneStyle: View.propTypes.style,
+    ...ViewPropTypes,
+    sceneStyle: ViewPropTypes.style,
     tabBarStyle: TabBar.propTypes.style,
     tabBarShadowStyle: TabBar.propTypes.shadowStyle,
     hidesTabTouch: PropTypes.bool
@@ -155,7 +155,7 @@ export default class TabNavigator extends React.Component {
 
 class SceneContainer extends React.Component {
   static propTypes = {
-    ...View.propTypes,
+    ...ViewPropTypes,
     selected: PropTypes.bool,
   };
 

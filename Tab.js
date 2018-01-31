@@ -1,14 +1,17 @@
 'use strict';
-import React, {
-  PropTypes,
-} from 'react';
+
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableNativeFeedback,
+  Platform,
   View,
 } from 'react-native';
 
+import ViewPropTypes from './config/ViewPropTypes';
 import Layout from './Layout';
 
 export default class Tab extends React.Component {
@@ -20,7 +23,7 @@ export default class Tab extends React.Component {
     onPress: PropTypes.func,
     hidesTabTouch: PropTypes.bool,
     allowFontScaling: PropTypes.bool,
-    style: View.propTypes.style,
+    style: ViewPropTypes.style,
   };
 
   constructor(props, context) {
@@ -57,7 +60,26 @@ export default class Tab extends React.Component {
       title ? null : styles.untitledContainer,
       this.props.style,
     ];
-    // TODO: Update the {...this.props} to exclude props not already being used
+    if (
+      !this.props.hidesTabTouch &&
+      Platform.OS === 'android' &&
+      Platform.Version >= 21
+    ) {
+      return (
+        <TouchableNativeFeedback
+          testID={this.props.testID}
+          background={TouchableNativeFeedback.Ripple(undefined, true)}
+          onPress={this._handlePress}>
+          <View style={tabStyle}>
+            <View>
+              {icon}
+              {badge}
+            </View>
+            {title}
+          </View>
+        </TouchableNativeFeedback>
+      );
+    }
     return (
       <TouchableOpacity {...this.props}
         testID={this.props.testID}
