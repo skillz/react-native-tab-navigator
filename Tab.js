@@ -69,7 +69,9 @@ export default class Tab extends React.Component {
         <TouchableNativeFeedback
           testID={this.props.testID}
           background={TouchableNativeFeedback.Ripple(undefined, true)}
-          onPress={this._handlePress}>
+          onPress={this._handlePress}
+          accessible={this.props.accessible}
+          accessibilityLabel={this.props.accessibilityLabel}>
           <View style={tabStyle}>
             <View>
               {icon}
