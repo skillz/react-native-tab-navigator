@@ -101,7 +101,8 @@ export default class TabNavigator extends React.Component {
         <TouchableOpacity style={[styles.tabContainer, item.props.tabStyle]}
                           onPress={item.props.onPress}
                           activeOpacity={item.props.hidesTabTouch ? 1 : 0.8}
-                          accessible={false}>
+                          accessible={this.props.accessible}
+                          accessibilityLabel={this.props.accessibilityLabel}>
           {item.props.renderTab(item.props.selected)}
         </TouchableOpacity>
       );
