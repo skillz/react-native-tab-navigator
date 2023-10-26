@@ -2,32 +2,44 @@
 
 import React from 'react';
 import {
+  LayoutChangeEvent,
   StyleSheet,
   Text,
+  TextProps,
+  ViewStyle,
 } from 'react-native';
 
 import Layout from './Layout';
 
-export default class Badge extends React.Component {
-  static propTypes = Text.propTypes;
+type IBadgeState = {
+  computedSize: {
+    width: number,
+    height: number,
+  },
+}
 
-  constructor(props, context) {
-    super(props, context);
+export default class Badge extends React.Component<TextProps, IBadgeState> {
+
+  constructor(props: TextProps) {
+    super(props);
 
     this._handleLayout = this._handleLayout.bind(this);
+    this.state = {
+      computedSize: {
+        width: 0,
+        height: 0,
+      },
+    };
   }
 
-  state = {
-    computedSize: null,
-  };
 
   render() {
     let { computedSize } = this.state;
-    let style = {};
+    let style:ViewStyle = {};
     if (!computedSize) {
       style.opacity = 0;
     } else {
-      style.width = Math.max(computedSize.height, computedSize.width);
+      style.width = Math.max(computedSize?.height, computedSize?.width);
     }
 
     return (
@@ -41,7 +53,7 @@ export default class Badge extends React.Component {
     );
   }
 
-  _handleLayout(event) {
+  _handleLayout(event: LayoutChangeEvent) {
     let { width, height } = event.nativeEvent.layout;
     let { computedSize } = this.state;
     if (computedSize && computedSize.height === height &&

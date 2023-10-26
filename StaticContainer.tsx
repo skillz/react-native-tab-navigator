@@ -2,13 +2,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ViewProps } from 'react-native';
 
-export default class StaticContainer extends React.Component {
+
+type ISceneContainerProps = ViewProps & {
+  shouldUpdate: boolean,
+}
+
+export default class StaticContainer extends React.Component<ISceneContainerProps> {
   static propTypes = {
     shouldUpdate: PropTypes.bool,
   };
 
-  shouldComponentUpdate(nextProps: Object): boolean {
+  shouldComponentUpdate(nextProps: ISceneContainerProps): boolean {
     return !!nextProps.shouldUpdate;
   }
 

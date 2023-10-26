@@ -1,33 +1,37 @@
-'use strict';
-
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import {
   StyleSheet,
+  StyleProp,
   Text,
   TouchableOpacity,
   TouchableNativeFeedback,
   Platform,
   View,
+  ViewStyle,
+  TextStyle,
+  ViewProps,
+  GestureResponderEvent
 } from 'react-native';
 
-import ViewPropTypes from './config/ViewPropTypes';
 import Layout from './Layout';
 
-export default class Tab extends React.Component {
-  static propTypes = {
-    testID : PropTypes.string,
-    title: PropTypes.string,
-    titleStyle: Text.propTypes.style,
-    badge: PropTypes.element,
-    onPress: PropTypes.func,
-    hidesTabTouch: PropTypes.bool,
-    allowFontScaling: PropTypes.bool,
-    style: ViewPropTypes.style,
-  };
+type ITabProps = ViewProps & {
+  testID?: string,
+  title?: string,
+  titleStyle?: TextStyle,
+  badge?: React.ReactElement<any>,
+  onPress?: Function,
+  hidesTabTouch?: boolean,
+  allowFontScaling?: boolean,
+  style?: ViewStyle,
+  children?: React.ReactElement<any>,
+}
 
-  constructor(props, context) {
-    super(props, context);
+
+export default class Tab extends React.Component<ITabProps, > {
+  constructor(props: ITabProps) {
+    super(props);
 
     this._handlePress = this._handlePress.bind(this);
   }
@@ -39,8 +43,9 @@ export default class Tab extends React.Component {
       icon = React.Children.only(this.props.children);
     }
 
+    let titleView;
     if (title) {
-      title =
+      titleView =
         <Text
           numberOfLines={1}
           allowFontScaling={!!this.props.allowFontScaling}
@@ -68,7 +73,7 @@ export default class Tab extends React.Component {
       return (
         <TouchableNativeFeedback
           testID={this.props.testID}
-          background={TouchableNativeFeedback.Ripple(undefined, true)}
+          background={TouchableNativeFeedback.Ripple('transparent', true)}
           onPress={this._handlePress}
           accessible={this.props.accessible}
           accessibilityLabel={this.props.accessibilityLabel}>
@@ -77,7 +82,7 @@ export default class Tab extends React.Component {
               {icon}
               {badge}
             </View>
-            {title}
+            {titleView}
           </View>
         </TouchableNativeFeedback>
       );
@@ -97,7 +102,7 @@ export default class Tab extends React.Component {
     );
   }
 
-  _handlePress(event) {
+  _handlePress(event: GestureResponderEvent) {
     if (this.props.onPress) {
       this.props.onPress(event);
     }

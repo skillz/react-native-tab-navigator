@@ -6,16 +6,19 @@ import {
   Platform,
   StyleSheet,
   View,
+  ViewProps,
+  ViewStyle,
 } from 'react-native';
 
-import ViewPropTypes from './config/ViewPropTypes';
 import Layout from './Layout';
 
-export default class TabBar extends React.Component {
-  static propTypes = {
-    ...Animated.View.propTypes,
-    shadowStyle: ViewPropTypes.style,
-  };
+type ITabViewProps = ViewProps & {
+  shadowStyle?: ViewStyle,
+  style?: ViewStyle,
+  children?: React.ReactNode,
+}
+
+export default class TabBar extends React.Component<ITabViewProps> {
 
   render() {
     return (
