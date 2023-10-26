@@ -2,7 +2,7 @@
   "name": "react-native-tab-navigator",
   "version": "0.3.4",
   "description": "A tab bar that switches between scenes, written in JS for cross-platform support",
-  "main": "TabNavigator.js",
+  "main": "TabNavigator.tsx",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/exponentjs/react-native-tab-navigator.git"
