@@ -97,7 +97,7 @@ export default class Tab extends React.Component<ITabProps, > {
           {icon}
           {badge}
         </View>
-        {title}
+        {titleView}
       </TouchableOpacity>
     );
   }
